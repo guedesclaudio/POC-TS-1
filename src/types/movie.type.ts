@@ -7,4 +7,10 @@ type Movie = {
     abstr: null | string
 };
 
-export {Movie};
+type Watch = {
+    note: string,
+    abstr: string,
+    status: boolean
+}
+
+export {Movie, Watch};

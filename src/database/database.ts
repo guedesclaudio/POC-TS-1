@@ -1,30 +1,16 @@
-import { Movie } from "../types/movie.type.js"
+import pg from "pg";
+import dotenv from "dotenv";
+dotenv.config();
 
-const movies: Movie[] = [
-    {
-        title: "Homem de Ferro",
-        platform: "Netflix",
-        genre: "ação",
-        status: false,
-        note: null,
-        abstr: null
-    },
-    {
-        title: "Diário de uma paixão",
-        platform: "Prime",
-        genre: "romance",
-        status: false,
-        note: null,
-        abstr: null
-    },
-    {
-        title: "Agente Oculto",
-        platform: "Neflix",
-        genre: "ação",
-        status: false,
-        note: null,
-        abstr: null
+const { Pool } = pg;
+
+const databaseConfig = {
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+        rejectUnauthorized: false
     }
-]
+};
 
-export {movies}
+const connection = new Pool(databaseConfig);
+
+export default connection;

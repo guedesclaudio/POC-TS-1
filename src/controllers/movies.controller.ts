@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { insertMovie, getMovies, watchMovie, removeMovie } from "../repositories/movies.repository.js";
-import { Movie } from "../types/movie.type.js"
+import { Movie, Watch } from "../types/movie.type.js"
 
 async function createMovie(req: Request, res: Response) {
 
@@ -31,11 +31,11 @@ async function readMovies(req: Request, res: Response) {
 async function updateMovie(req: Request, res: Response) {
 
     const { id } = req.params
-    const { note, abstr } = req.body  
+    const watch = req.body
 
     try {
 
-        await watchMovie({id, note, abstr})
+        await watchMovie(Number(id), watch as Watch)
         res.sendStatus(200)
         
     } catch (error) {
@@ -49,8 +49,7 @@ async function deleteMovie(req: Request, res: Response) {
     const { id } = req.params
 
     try {
-
-        await removeMovie({id})
+        await removeMovie(Number(id))
         res.sendStatus(200)
         
     } catch (error) {
