@@ -1,4 +1,5 @@
-type Movie = {
+type MovieEntity = {
+    id: number,
     title: string,
     platform: string,
     genre: string,
@@ -13,4 +14,9 @@ type Watch = {
     status: boolean
 }
 
-export {Movie, Watch};
+type Platform = {
+    id: number,
+    name: string
+}
+
+export {MovieEntity, Watch, Platform};
