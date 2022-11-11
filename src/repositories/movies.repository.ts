@@ -50,10 +50,12 @@ async function queryMovie(id: number): Promise<QueryResult> {
 
 async function getFiltredMovies(): Promise<QueryResult> {
     return (await connection.query(`
-        SELECT COUNT(*) AS "moviesNumber",
-        name AS platform
-        FROM platforms
-        GROUP BY name;
+        SELECT 
+        COUNT(*) AS "moviesNumber",
+        platforms.name AS platform
+        FROM movies
+        JOIN platforms ON movies."platformId" = platforms.id
+        GROUP BY platform;
     `,))
 }
 
