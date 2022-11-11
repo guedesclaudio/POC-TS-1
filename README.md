@@ -14,6 +14,33 @@
 - Delete o filme quando quiser
 - Listagem da quantidade filmes por plataforma
 
+# Documentação
+- POST: "/movies"
+
+ ``` json
+     {
+      "title": "titulo do filme",
+      "genre": "gênero do filme",
+      "platform": "nome da plataforma",
+      "status": "false ou true (se já tiver assistido true, se não false)",
+      "note": "nota para o filme (opcional)",
+      "abstr": "resumo do filme (opcional)" 
+     }
+ ```
+
+ - GET: "/movies"
+
+- PUT: "/movies/:idDoFilme"
+ ``` json
+     {
+      "note": "nota para o filme (opcional)",
+      "abstr": "resumo do filme (opcional)" 
+     }
+ ```
+ - DELETE: "/movies/:idDoFilme"
+ - GET: "/movies/filter-by-platform"
+
+
 # Tecnologias utilizadas
 - NODE.JS
 - TYPESCRIPT
