@@ -34,122 +34,71 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-import { insertMovie, getMovies, watchMovie, removeMovie, getFiltredMovies } from "../repositories/movies.repository.js";
-function createMovie(req, res) {
+import connection from "../database/database.js";
+function insertMovie(movie, platformId) {
+    connection.query("\n        INSERT INTO movies (title, \"platformId\", genre, status, note, abstr) \n        VALUES ($1, $2, $3, $4, $5, $6);\n    ", [movie.title, platformId, movie.genre, movie.status, movie.note, movie.abstr]);
+}
+;
+function getMovies() {
     return __awaiter(this, void 0, void 0, function () {
-        var movie, platformId, error_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0:
-                    movie = req.body;
-                    platformId = res.locals.platformId;
-                    _a.label = 1;
-                case 1:
-                    _a.trys.push([1, 3, , 4]);
-                    return [4 /*yield*/, insertMovie(movie, Number(platformId))];
-                case 2:
-                    _a.sent();
-                    return [2 /*return*/, res.sendStatus(201)];
-                case 3:
-                    error_1 = _a.sent();
-                    console.error(error_1);
-                    res.sendStatus(500);
-                    return [3 /*break*/, 4];
-                case 4: return [2 /*return*/];
+                case 0: return [4 /*yield*/, connection.query("\n        SELECT \n        movies.id,\n        movies.title,\n        movies.status,\n        movies.genre,\n        movies.note,\n        movies.abstr, \n        platforms.name AS platform\n        FROM movies\n        JOIN platforms ON movies.\"platformId\" = platforms.id;\n    ")];
+                case 1: return [2 /*return*/, (_a.sent())];
             }
         });
     });
 }
 ;
-function readMovies(req, res) {
+function watchMovie(id, watch) {
+    connection.query("\n        UPDATE movies \n        SET status = TRUE,\n        note = $1,\n        abstr = $2\n        WHERE id = $3;\n    ", [watch.note, watch.abstr, id]);
+}
+;
+function removeMovie(id) {
+    connection.query("\n        DELETE FROM movies \n        WHERE id = $1;\n    ", [id]);
+}
+;
+function queryMovie(id) {
     return __awaiter(this, void 0, void 0, function () {
-        var movies, error_2;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0:
-                    _a.trys.push([0, 2, , 3]);
-                    return [4 /*yield*/, getMovies()];
-                case 1:
-                    movies = (_a.sent()).rows;
-                    return [2 /*return*/, res.status(200).send(movies)];
-                case 2:
-                    error_2 = _a.sent();
-                    console.error(error_2);
-                    res.sendStatus(500);
-                    return [3 /*break*/, 3];
-                case 3: return [2 /*return*/];
+                case 0: return [4 /*yield*/, connection.query("\n        SELECT * FROM movies\n        WHERE id = $1;\n    ", [id])];
+                case 1: return [2 /*return*/, (_a.sent())];
             }
         });
     });
 }
-function updateMovie(req, res) {
+function getFiltredMovies() {
     return __awaiter(this, void 0, void 0, function () {
-        var id, watch, error_3;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0:
-                    id = req.params.id;
-                    watch = req.body;
-                    _a.label = 1;
+                case 0: return [4 /*yield*/, connection.query("\n        SELECT COUNT(*) AS \"moviesNumber\",\n        name AS platform\n        FROM platforms\n        GROUP BY name;\n    ")];
+                case 1: return [2 /*return*/, (_a.sent())];
+            }
+        });
+    });
+}
+function createPlatform(platform) {
+    return __awaiter(this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, connection.query("\n        INSERT INTO platforms (name) VALUES ($1)\n    ", [platform])];
                 case 1:
-                    _a.trys.push([1, 3, , 4]);
-                    return [4 /*yield*/, watchMovie(Number(id), watch)];
-                case 2:
                     _a.sent();
-                    return [2 /*return*/, res.sendStatus(200)];
-                case 3:
-                    error_3 = _a.sent();
-                    console.error(error_3);
-                    res.sendStatus(500);
-                    return [3 /*break*/, 4];
-                case 4: return [2 /*return*/];
+                    return [4 /*yield*/, connection.query("\n        SELECT * FROM platforms WHERE name = $1\n    ", [platform])];
+                case 2: return [2 /*return*/, (_a.sent())];
             }
         });
     });
 }
-function deleteMovie(req, res) {
+function queryPlatform(platform) {
     return __awaiter(this, void 0, void 0, function () {
-        var id, error_4;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0:
-                    id = req.params.id;
-                    _a.label = 1;
-                case 1:
-                    _a.trys.push([1, 3, , 4]);
-                    return [4 /*yield*/, removeMovie(Number(id))];
-                case 2:
-                    _a.sent();
-                    return [2 /*return*/, res.sendStatus(200)];
-                case 3:
-                    error_4 = _a.sent();
-                    console.error(error_4);
-                    res.sendStatus(500);
-                    return [3 /*break*/, 4];
-                case 4: return [2 /*return*/];
+                case 0: return [4 /*yield*/, connection.query("\n        SELECT * FROM platforms WHERE name = $1\n    ", [platform])];
+                case 1: return [2 /*return*/, (_a.sent())];
             }
         });
     });
 }
-function filterMovies(req, res) {
-    return __awaiter(this, void 0, void 0, function () {
-        var movies, error_5;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    _a.trys.push([0, 2, , 3]);
-                    return [4 /*yield*/, getFiltredMovies()];
-                case 1:
-                    movies = (_a.sent()).rows;
-                    return [2 /*return*/, res.status(200).send(movies)];
-                case 2:
-                    error_5 = _a.sent();
-                    console.error(error_5);
-                    res.sendStatus(500);
-                    return [3 /*break*/, 3];
-                case 3: return [2 /*return*/];
-            }
-        });
-    });
-}
-export { createMovie, readMovies, updateMovie, deleteMovie, filterMovies };
+export { insertMovie, getMovies, watchMovie, removeMovie, queryMovie, getFiltredMovies, createPlatform, queryPlatform };

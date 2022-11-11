@@ -12,4 +12,4 @@ server.get("/status", (req: Request, res: Response) => {
     res.send("server it's on")
 });
 
-server.listen(4000, () => {console.log("Server listen on PORT 4000")});
+server.listen(process.env.PORT, () => {console.log("Server listen on PORT 4000")});
