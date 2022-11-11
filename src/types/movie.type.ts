@@ -8,6 +8,8 @@ type MovieEntity = {
     abstr: null | string
 };
 
+type Movie = Omit <MovieEntity, "id">
+
 type Watch = {
     note: string,
     abstr: string,
@@ -19,4 +21,4 @@ type Platform = {
     name: string
 }
 
-export {MovieEntity, Watch, Platform};
+export {MovieEntity, Movie, Watch, Platform};

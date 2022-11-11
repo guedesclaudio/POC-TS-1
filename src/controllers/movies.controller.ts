@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
 import { insertMovie, getMovies, watchMovie, removeMovie, getFiltredMovies } from "../repositories/movies.repository.js";
-import { MovieEntity, Watch } from "../types/movie.type.js"
+import { MovieEntity, Movie, Watch } from "../types/movie.type.js"
 
 async function createMovie(req: Request, res: Response) {
 
-    const movie = req.body as MovieEntity
+    const movie = req.body as Movie
     const platformId = res.locals.platformId
 
     try {

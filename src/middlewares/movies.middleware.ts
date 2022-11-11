@@ -1,7 +1,9 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { queryMovie, createPlatform, queryPlatform } from "../repositories/movies.repository.js"
+import { createMovieSchema } from "../schemas/create.schema.js"
+import { MovieEntity } from "../types/movie.type.js";
 
-async function validateUpdateAndDeleteMovie(req: Request, res: Response, next) {
+async function validateUpdateAndDeleteMovie(req: Request, res: Response, next: NextFunction) {
     
     const {id} = req.params
 
@@ -19,9 +21,17 @@ async function validateUpdateAndDeleteMovie(req: Request, res: Response, next) {
 };
 
 
-async function validateCreateMovie(req: Request, res: Response, next) {
+async function validateCreateMovie(req: Request, res: Response, next: NextFunction) {
 
     const { platform } = req.body
+
+    const {error} = createMovieSchema.validate(req.body as MovieEntity)
+
+    if (error) {
+        return res.status(400).send({
+            message: error.message
+        })
+    }
 
     try {
         const platformValue = (await queryPlatform(platform)).rows[0].id

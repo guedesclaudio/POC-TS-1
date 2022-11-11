@@ -1,8 +1,8 @@
 import { QueryResult } from "pg";
-import { MovieEntity, Platform } from "../types/movie.type.js"
+import { MovieEntity, Movie, Platform, Watch } from "../types/movie.type.js"
 import connection from "../database/database.js"
 
-function insertMovie(movie: MovieEntity, platformId: number): void {
+function insertMovie(movie: Movie, platformId: number): void {
     connection.query(`
         INSERT INTO movies (title, "platformId", genre, status, note, abstr) 
         VALUES ($1, $2, $3, $4, $5, $6);
@@ -14,6 +14,7 @@ async function getMovies(): Promise<QueryResult<MovieEntity>> {
         SELECT 
         movies.id,
         movies.title,
+        movies.status,
         movies.genre,
         movies.note,
         movies.abstr, 
@@ -23,7 +24,7 @@ async function getMovies(): Promise<QueryResult<MovieEntity>> {
     `))
 };
 
-function watchMovie(id: number, watch): void {
+function watchMovie(id: number, watch: Watch): void {
     connection.query(`
         UPDATE movies 
         SET status = TRUE,
