@@ -63,5 +63,5 @@ npm i
 4. Configure o .env
 5. Rode o projeto:
 ```bash
-node ./src/index.ts
+npx nodemon ./src/server.ts
 ```
