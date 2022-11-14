@@ -70,9 +70,9 @@ async function createPlatform(platform: string): Promise<QueryResult<Platform>> 
 }
 
 async function queryPlatform(platform: string): Promise<QueryResult<Platform>> {
-    return (await connection.query(`
+    return await connection.query(`
         SELECT * FROM platforms WHERE name = $1
-    `, [platform]))
+    `, [platform])
 }
 
 export {insertMovie, getMovies, watchMovie, removeMovie, queryMovie, getFiltredMovies, createPlatform, queryPlatform};

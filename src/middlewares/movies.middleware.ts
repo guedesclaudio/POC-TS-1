@@ -34,14 +34,14 @@ async function validateCreateMovie(req: Request, res: Response, next: NextFuncti
     }
 
     try {
-        const platformValue = (await queryPlatform(platform)).rows[0].id
-
+        const platformValue =  (await queryPlatform(platform)).rows[0]
+        
         if (!platformValue) {
             const platformId = (await createPlatform(platform)).rows[0].id
-
             res.locals.platformId = platformId
         } else {
-            res.locals.platformId = platformValue
+            const platformId = platformValue.id
+            res.locals.platformId = platformId
         }
         next()
         
