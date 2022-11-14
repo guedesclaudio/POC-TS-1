@@ -6,7 +6,7 @@ const createMovieSchema = Joi.object({
     status: Joi.boolean(),
     note: Joi.number(),
     abstr: Joi.string(),
-    platform: Joi.string()
+    platform: Joi.string().required()
 })
 
 export {createMovieSchema}
