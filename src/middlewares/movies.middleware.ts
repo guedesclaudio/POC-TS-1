@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
-import { queryMovie, createPlatform, queryPlatform } from "../repositories/movies.repository.js"
-import { createMovieSchema } from "../schemas/create.schema.js"
-import { MovieEntity } from "../types/movie.type.js";
+import { queryMovie, createPlatform, queryPlatform } from "../repositories/movies.repository"
+import { createMovieSchema } from "../schemas/create.schema"
+import { MovieEntity } from "../types/movie.type";
 
 async function validateUpdateAndDeleteMovie(req: Request, res: Response, next: NextFunction) {
     

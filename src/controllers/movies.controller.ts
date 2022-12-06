@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { insertMovie, getMovies, watchMovie, removeMovie, getFiltredMovies } from "../repositories/movies.repository.js";
-import { MovieEntity, Movie, Watch } from "../types/movie.type.js"
+import { insertMovie, getMovies, watchMovie, removeMovie, getFiltredMovies } from "../repositories/movies.repository";
+import { MovieEntity, Movie, Watch } from "../types/movie.type"
 
 async function createMovie(req: Request, res: Response) {
 

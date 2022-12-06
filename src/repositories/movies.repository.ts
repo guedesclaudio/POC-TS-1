@@ -1,6 +1,6 @@
 import { QueryResult } from "pg";
-import { MovieEntity, Movie, Platform, Watch } from "../types/movie.type.js"
-import connection from "../database/database.js"
+import { MovieEntity, Movie, Platform, Watch } from "../types/movie.type"
+import connection from "../database/database"
 
 function insertMovie(movie: Movie, platformId: number): void {
     connection.query(`

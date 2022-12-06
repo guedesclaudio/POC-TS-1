@@ -1,6 +1,6 @@
 import express from "express";
-import { createMovie, readMovies, updateMovie, deleteMovie, filterMovies } from "../controllers/movies.controller.js";
-import { validateCreateMovie, validateUpdateAndDeleteMovie } from "../middlewares/movies.middleware.js";
+import { createMovie, readMovies, updateMovie, deleteMovie, filterMovies } from "../controllers/movies.controller";
+import { validateCreateMovie, validateUpdateAndDeleteMovie } from "../middlewares/movies.middleware";
 
 const router = express.Router();
 

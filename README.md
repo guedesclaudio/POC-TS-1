@@ -1,7 +1,7 @@
 <div align="center">
   <h1>WISHLIST</h1>
   <br>
-  - Back-end de uma aplicação web para gerenciar sua lista de filmes favoritos
+  - Prova de conceito de uma aplicação back-end web para gerenciar uma lista de filmes favoritos
   <br>
   <br>
 </div>
